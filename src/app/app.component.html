@@ -1,9 +1,11 @@
-<div>
-      <!--<app-auth-form
+<div class="container-fluid">
+  <!--<div class="row">
+    <div class="col-12">
+      <app-auth-form
         (submitted)="createUser($event)">
         <h3>Create account</h3>
         <button type="submit">Join Us</button>
-      </app-auth-form>-->
+      </app-auth-form>
       <app-auth-form
         (submitted)="loginUser($event)">
         <h3>Login</h3>
@@ -12,12 +14,44 @@
         <app-auth-remember (checked)="rememberUser($event)"></app-auth-remember>
         <button type="submit">Login</button>
       </app-auth-form>
-      <!--<app-auth-form-dynamic (submitted)="loginUser($event)">
-      </app-auth-form-dynamic>-->
+      <app-auth-form-dynamic (submitted)="loginUser($event)">
+      </app-auth-form-dynamic>
 
       <div #entry>
-        <button (click)="destroyComponent()">Destroy</button>
+        <button class="btn btn-primary" (click)="destroyComponent()">Destroy</button>
+        <button class="btn btn-primary" (click)="moveComponent()">Move</button>
       </div>
 
 
     </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <template #tmpl let-name let-location="location">
+          {{ name }} : {{ location }}
+        </template>
+        <ng-container [ngTemplateOutlet]="tmpl"
+                      [ngTemplateOutletContext]="ctx">
+        </ng-container>
+
+        <div>
+        <app-one></app-one>
+        <app-two></app-two>
+        <app-three></app-three>
+      </div>
+      </div>
+    </div>-->
+    <div class="row">
+      <div class="col-12">
+        <div>
+            <button (click)="addProp()">Add property</button>
+            <button (click)="changeUser()">Change user object</button>
+            <button (click)="changeName()">Change name property</button>
+            <div class="users">
+              <app-one [user]="user"></app-one>
+              <app-two [user]="user"></app-two>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
