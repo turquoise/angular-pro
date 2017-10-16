@@ -1,0 +1,27 @@
+<div>
+      <form (ngSubmit)="onSubmit(form.value)" #form="ngForm">
+        <ng-content slect="h3"></ng-content>
+        <label>
+          Email address
+          <input type="email" name="email" ngModel #email>
+        </label>
+        <label>
+          Password
+          <input type="password" name="password" ngModel>
+        </label>
+        <!--<button type="submit">
+          Submit
+        </button>-->
+        <ng-content select="app-auth-remember"></ng-content>
+        <!--<div *ngIf="showMessage">
+          You will be logged in for 30 days.
+        </div>-->
+        <app-auth-message [style.display]="(showMessage ? 'inherit' : 'none')">
+        </app-auth-message>
+        <app-auth-message [style.display]="(showMessage ? 'inherit' : 'none')">
+        </app-auth-message>
+        <app-auth-message [style.display]="(showMessage ? 'inherit' : 'none')">
+        </app-auth-message>
+        <ng-content select="button"></ng-content>
+      </form>
+    </div>
