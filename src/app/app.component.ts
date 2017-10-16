@@ -1,4 +1,11 @@
-import { Component, ViewChild, ViewContainerRef, ComponentFactoryResolver, AfterContentInit } from '@angular/core';
+import {
+  Component,
+  ViewChild,
+  ViewContainerRef,
+  ComponentFactoryResolver,
+  AfterContentInit,
+  ComponentRef
+} from '@angular/core';
 import { AuthFormDynamicComponent } from './auth-form/auth-form-dynamic.component';
 import { User } from './auth-form/auth-form.interface';
 
@@ -9,6 +16,8 @@ import { User } from './auth-form/auth-form.interface';
 })
 export class AppComponent implements AfterContentInit {
 
+  component: ComponentRef<AuthFormDynamicComponent>;
+
   rememberMe: boolean = false;
   @ViewChild('entry', { read: ViewContainerRef }) entry: ViewContainerRef;
 
@@ -17,8 +26,12 @@ export class AppComponent implements AfterContentInit {
   }
 
   ngAfterContentInit() {
+    // creating a dynamic component.
     const authFormFactory = this.resolver.resolveComponentFactory(AuthFormDynamicComponent);
-    const component = this.entry.createComponent(authFormFactory);
+    this.component = this.entry.createComponent(authFormFactory);
+    this.component.instance.title = 'Create account';
+    this.component.instance.submitted.subscribe(this.loginUser);
+    //console.log('component ', component.instance);
   }
 
   createUser(user: User) {
@@ -26,12 +39,17 @@ export class AppComponent implements AfterContentInit {
   }
 
   loginUser(user: User) {
-    console.log('Login', user, this.rememberMe);
+    console.log('Login', user);
   }
 
   rememberUser(remember: boolean) {
     this.rememberMe = remember;
 
+  }
+
+  destroyComponent() {
+    //onsole.log('this.component ', this.component);
+    this.component.destroy();
   }
 
 
